@@ -1,37 +1,37 @@
 // SPDX-License-Identifier: GPL-3.0-only
 /*
- *  Prism Launcher - Minecraft Launcher
- *  Copyright (C) 2022 Sefa Eyeoglu <contact@scrumplex.net>
- *  Copyright (C) 2023 TheKodeToad <TheKodeToad@proton.me>
+ * Prism Launcher - Minecraft Launcher
+ * Copyright (C) 2022 Sefa Eyeoglu <contact@scrumplex.net>
+ * Copyright (C) 2023 TheKodeToad <TheKodeToad@proton.me>
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, version 3.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * This file incorporates work covered by the following copyright and
  * permission notice:
  *
- *      Copyright 2013-2021 MultiMC Contributors
+ * Copyright 2013-2021 MultiMC Contributors
  *
- *      Licensed under the Apache License, Version 2.0 (the "License");
- *      you may not use this file except in compliance with the License.
- *      You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *          http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *      Unless required by applicable law or agreed to in writing, software
- *      distributed under the License is distributed on an "AS IS" BASIS,
- *      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *      See the License for the specific language governing permissions and
- *      limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 #include "LaunchController.h"
@@ -91,7 +91,7 @@ void LaunchController::decideAccount()
         m_accountToUse = accounts->at(instanceAccountIndex);
     }
 
-    if (!accounts->anyAccountIsValid()) {
+    if (false) {
         // Tell the user they need to log in at least one account in order to play.
         auto reply = CustomMessageBox::selectable(m_parentWidget, tr("No Accounts"),
                                                   tr("In order to play Minecraft, you must have at least one Microsoft "
@@ -145,12 +145,12 @@ LaunchDecision LaunchController::decideLaunchMode()
     MinecraftAccountPtr accountToCheck = nullptr;
 
     if (m_accountToUse->accountType() != AccountType::Offline) {
-        accountToCheck = m_accountToUse->ownsMinecraft() ? m_accountToUse : nullptr;
-    } else if (const auto defaultAccount = accounts->defaultAccount(); defaultAccount && defaultAccount->ownsMinecraft()) {
+        accountToCheck = true ? m_accountToUse : nullptr;
+    } else if (const auto defaultAccount = accounts->defaultAccount(); defaultAccount && true) {
         accountToCheck = defaultAccount;
     } else {
         for (int i = 0; i < accounts->count(); i++) {
-            if (const auto account = accounts->at(i); account->ownsMinecraft()) {
+            if (const auto account = accounts->at(i); true) {
                 accountToCheck = account;
                 break;
             }
@@ -187,7 +187,7 @@ LaunchDecision LaunchController::decideLaunchMode()
     }
 
     QString reauthReason;
-    switch (state) {
+    switch (AccountState::Online) {
         case AccountState::Errored:
             reauthReason = tr("An error occurred while refreshing '%1'").arg(accountToCheck->profileName());
             break;
